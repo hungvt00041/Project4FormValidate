@@ -1,0 +1,94 @@
+<div *ngIf="!displayInfo">
+  <form [formGroup]="profileForm" *ngIf="!displayInfo">
+    <div class="example-container">
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Tên công ty"
+          formControlName="nameCompany"
+        />
+      </mat-form-field>
+      <span style="color:red"  *ngIf="nameCompany.hasError('required') && (nameCompany.dirty||nameCompany.touched)">Ten khong dc de trong</span>
+      <mat-form-field>
+        <input matInput placeholder="Website" formControlName="website" />
+        <mat-error
+        *ngIf="website.invalid">
+          {{websiteError}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Mô tả" formControlName="description" />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Choose a date"
+          formControlName="birthday"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div formGroupName="groupdiachi" class="example-container">
+        <h1>Địa chỉ</h1>
+        <mat-form-field>
+          <input matInput placeholder="Thành phố" formControlName="city" />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Quận huyện" formControlName="district" />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Phường xã" formControlName="phuongxa" />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Địa chỉ" formControlName="address" />
+        </mat-form-field>
+      </div>
+
+      <div formArrayName="aliases">
+        <h3>Phúc lợi</h3>
+        <button (click)="addAlias()">Thêm phúc lợi</button>
+
+        <div *ngFor="let address of aliases.controls; let i = index">
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="Phúc lợi {{ i + 1 }}"
+              [formControlName]="i"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="example-button-row">
+        <button
+          [disabled]="profileForm.invalid"
+          mat-raised-button
+          color="primary"
+          (click)="getFormValue()"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<div *ngIf="displayInfo">
+  <h1>Thong tin cong ty</h1>
+  <p>Tên công ty: {{ profileForm.value.nameCompany }}</p>
+  <p>Website: {{ profileForm.value.website }}</p>
+  <p>Desc: {{ profileForm.value.description }}</p>
+  <p>Birthday: {{ profileForm.value.birthday | date: "dd/MM/yyyy" }}</p>
+  <p>City: {{ profileForm.value.groupdiachi.city }}</p>
+  <p>District: {{ profileForm.value.groupdiachi.district }}</p>
+  <p>Phường xã: {{ profileForm.value.groupdiachi.phuongxa }}</p>
+  <p>Địa chỉ: {{ profileForm.value.groupdiachi.address }}</p>
+  <p *ngFor="let item of profileForm.value.aliases; let i = index">
+    Phúc lợi{{ i + 1 }}: {{ item }}
+  </p>
+
+  <div class="example-button-row">
+    <button mat-raised-button color="primary" (click)="getFormValue()">
+      Submit
+    </button>
+  </div>
+</div>

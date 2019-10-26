@@ -1,0 +1,25 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+form {
+  width: 700px;
+  margin:auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+.example-button-row button,
+.example-button-row a {
+  margin-right: 8px;
+}
+
+div.parentElement{text-align: center;}
+.btn-work{ display: inline-block; }
